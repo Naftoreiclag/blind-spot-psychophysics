@@ -28,7 +28,7 @@
     <Param name="blendMode" updates="None" val="avg" valType="str"/>
     <Param name="color" updates="None" val="$[-1,-1,-1]" valType="str"/>
     <Param name="colorSpace" updates="None" val="rgb" valType="str"/>
-    <Param name="expName" updates="None" val="blindspot" valType="str"/>
+    <Param name="expName" updates="None" val="map" valType="str"/>
     <Param name="exportHTML" updates="None" val="on Sync" valType="str"/>
     <Param name="logging level" updates="None" val="debug" valType="code"/>
   </Settings>
@@ -72,7 +72,7 @@
         <Param name="name" updates="None" val="fixate_vert" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
-        <Param name="pos" updates="constant" val="(5,0)" valType="code"/>
+        <Param name="pos" updates="set every repeat" val="(5*eye_lr,0)" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="shape" updates="constant" val="line" valType="str"/>
         <Param name="size" updates="constant" val="(1, 1)" valType="code"/>
@@ -97,7 +97,7 @@
         <Param name="name" updates="None" val="fixate_horiz" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
         <Param name="ori" updates="constant" val="90" valType="code"/>
-        <Param name="pos" updates="constant" val="(5, 0)" valType="code"/>
+        <Param name="pos" updates="set every repeat" val="(5*eye_lr, 0)" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="shape" updates="constant" val="line" valType="str"/>
         <Param name="size" updates="constant" val="(1, 1)" valType="code"/>
