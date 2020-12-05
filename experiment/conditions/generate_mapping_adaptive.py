@@ -1,13 +1,16 @@
 import csv
-
+import sys
 import random
 
-radius = 4
-num_samples = 150
+if len(sys.argv) < 5:
+	print('Arguments: ')
+	print('<x> <y> <rad> <num_samples>')
+	exit(0)
 
-random.seed(0)
-
-bias_x = -2
+center_x = float(sys.argv[1])
+center_y = float(sys.argv[2])
+radius = float(sys.argv[3])
+num_samples = int(sys.argv[4])
 
 def sample():
 	while True:
@@ -17,7 +20,7 @@ def sample():
 		d = (x*x+y*y)**0.5
 		
 		if d <= radius:
-			return (x + bias_x, y)
+			return (x + center_x, y + center_y)
 
 samples = [sample() for _ in range(num_samples)]
 

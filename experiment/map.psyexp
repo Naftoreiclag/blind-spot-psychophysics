@@ -234,7 +234,7 @@
         <Param name="name" updates="None" val="test_spot" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
-        <Param name="pos" updates="set every repeat" val="(-2*int(expInfo['eye_lr']) + offset_x,offset_y)" valType="code"/>
+        <Param name="pos" updates="set every repeat" val="(offset_x*int(expInfo['eye_lr']),offset_y)" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="shape" updates="constant" val="regular polygon..." valType="str"/>
         <Param name="size" updates="constant" val="(0.1, 0.1)" valType="code"/>
