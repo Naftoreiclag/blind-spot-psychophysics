@@ -27,11 +27,11 @@ def load_data(subject_name, eye_lr):
 			reader = csv.DictReader(data_file)
 			for row in reader:
 				try:
+					if int(row['eye_lr']) != eye_lr:
+						continue
 					off_x.append(float(row['offset_x']))
 					off_y.append(float(row['offset_y']))
 					
-					if int(row['eye_lr']) != eye_lr:
-						continue
 					
 					resp.append('j' in row['key_resp_2.keys'])
 				except ValueError:
@@ -77,8 +77,19 @@ def fit_svm(locs, resp):
 	bias = clf.intercept_[0]
 	print(weights, bias)
 
-	extract_ellipse(weights, bias)
+	a,b,h,k = extract_ellipse(weights, bias)
 
+	h += blind_spot_center[0]
+	k += blind_spot_center[1]
+	
+	print('Ellipse parameters:')
+	print('(x-h)a^-2 + (y-k)b^-2 = 1')
+	print('a: ', a)
+	print('b: ', b)
+	print('h: ', h)
+	print('k: ', k)
+	
+	
 	delta = 0.025
 	X, Y = np.meshgrid(np.arange(blind_spot_center[0]-4, blind_spot_center[0]+4, delta), np.arange(blind_spot_center[1]-4, blind_spot_center[1]+4, delta))
 	Xs = X - blind_spot_center[0]
@@ -91,6 +102,9 @@ def fit_svm(locs, resp):
 	ax.scatter(samples[resp,0], samples[resp,1])
 	ax.scatter(samples[~resp,0], samples[~resp,1])
 	ax.plot([blind_spot_center[0]], [blind_spot_center[1]], marker='o', markersize=3, color="red")
+	ax.set_xlim(-8, 8)
+	ax.set_ylim(-8, 8)
+	ax.set_aspect('equal')
 	plt.show()
 
 if True:
