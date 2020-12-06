@@ -36,18 +36,22 @@ with open('line_locs.csv', 'w') as csvfile:
 	writer = csv.writer(csvfile)
 	writer.writerow(['bottom_y', 'middle_y', 'top_y', \
 					'blind_x', 'blind_y', 'blind_w', 'blind_h', \
-					'subject_name', 'eye_lr'])
+					'source_subject_name', 'source_eye_lr', 'delta_x', 'level', 'displacement', 'gap_size', 'test_gap_size'])
 	for rep in range(num_repeats):
 		print('\n', rep)
 		levels = np.round(np.arange(-num_levels, num_levels+1), decimals=4)
-		np.random.shuffle(levels)
+		# No need to shuffle the levels because PsychoPy already does that
+		#np.random.shuffle(levels)
 		for lev in levels:
 			jitter = (np.random.random() - 0.5)*2*jitter_max
 
+			displacement = np.round(lev*delta_x, decimals=4)
+
 			bottom_loc = bottom_line + jitter
 			middle_loc = middle_line + jitter
-			top_loc = top_line + np.round(lev*delta_x, decimals=4) + jitter
+			top_loc = top_line + displacement + jitter
+			test_gap_size = gap_size + displacement
 
-			row = [bottom_loc, middle_loc, top_loc, blind_x, blind_y, blind_w, blind_h, subject_name, eye_lr]
+			row = [bottom_loc, middle_loc, top_loc, blind_x, blind_y, blind_w, blind_h, subject_name, eye_lr, delta_x, lev, displacement, gap_size, test_gap_size]
 			writer.writerow(row)
 			print(row)
