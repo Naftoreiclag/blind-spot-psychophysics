@@ -1,11 +1,14 @@
 import sys
 import glob
 import csv
+import json
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 if not len(sys.argv) >= 2:
 	print('Args: <subject> <eye_lr>')
+	exit(0)
 
 subject_name = sys.argv[1]
 eye_lr = int(sys.argv[2])
@@ -57,6 +60,20 @@ def extract_ellipse(weights, bias):
 	
 	return a,b,h,k
 	
+def ensure_folders_exist(output_fname):
+	output_folder = ''.join(os.path.split(output_fname)[:-1])
+	if not os.path.exists(output_folder):
+		os.makedirs(output_folder)
+		return False
+	else:
+		return True
+	
+def save_blind_spot(subject_name, eye_lr, ellipse):
+	filename = 'maps/{}_{}.json'.format(subject_name, eye_lr)
+	ensure_folders_exist(filename)
+	with open(filename, 'w') as ofile:
+		json.dump([subject_name, eye_lr, ellipse], ofile)
+	
 
 def fit_svm(locs, resp):
 	from sklearn import svm
@@ -106,9 +123,13 @@ def fit_svm(locs, resp):
 	ax.set_ylim(-8, 8)
 	ax.set_aspect('equal')
 	plt.show()
+	
+	return a,b,h,k
 
 if True:
-	fit_svm(locs, resp)
+	ellipse = fit_svm(locs, resp)
+	
+	save_blind_spot(subject_name, eye_lr, ellipse)
 else:
 	plt.scatter(locs[:, 0], locs[:, 1])
 	plt.scatter(locs[~resp, 0], locs[~resp, 1])
