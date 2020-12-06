@@ -10,7 +10,7 @@ if not len(sys.argv) >= 2:
 subject_name = sys.argv[1]
 eye_lr = int(sys.argv[2])
 
-gap_size = 5
+gap_size = 4.7
 
 with open('../maps/{}_{}.json'.format(subject_name, eye_lr), 'r') as ofile:
 	subject_name, eye_lr, ellipse = json.load(ofile)
@@ -26,11 +26,13 @@ bottom_line = blind_y - (gap_size/2)
 middle_line = blind_y + (gap_size/2)    # these keep the real distance between lines at 4
 top_line = middle_line + gap_size    # centered location of top line
 
-delta_x = 0.1
+delta_x = 0.3
 num_levels = 3
 
 num_repeats = 5
 jitter_max = 0.1
+
+print(top_line + delta_x*num_levels + jitter_max)
 
 with open('line_locs.csv', 'w') as csvfile:
 	writer = csv.writer(csvfile)
@@ -38,7 +40,7 @@ with open('line_locs.csv', 'w') as csvfile:
 					'blind_x', 'blind_y', 'blind_w', 'blind_h', \
 					'source_subject_name', 'source_eye_lr', 'delta_x', 'level', 'displacement', 'gap_size', 'test_gap_size'])
 	for rep in range(num_repeats):
-		print('\n', rep)
+		# print('\n', rep)
 		levels = np.round(np.arange(-num_levels, num_levels+1), decimals=4)
 		# No need to shuffle the levels because PsychoPy already does that
 		#np.random.shuffle(levels)
@@ -54,4 +56,4 @@ with open('line_locs.csv', 'w') as csvfile:
 
 			row = [bottom_loc, middle_loc, top_loc, blind_x, blind_y, blind_w, blind_h, subject_name, eye_lr, delta_x, lev, displacement, gap_size, test_gap_size]
 			writer.writerow(row)
-			print(row)
+			# print(row)

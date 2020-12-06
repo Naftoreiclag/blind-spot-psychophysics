@@ -67,6 +67,6 @@ def load_data(subject_name, eye_lr, is_control):
 	
 levels, resp = load_data(subject_name, eye_lr, is_control)
 
-print(levels)
-print(resp)
+print(repr(levels))
+print(repr(resp))
 
