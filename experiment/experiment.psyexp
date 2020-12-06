@@ -229,15 +229,15 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="$[1,1,1]" valType="str"/>
         <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
-        <Param name="lineWidth" updates="constant" val="2" valType="code"/>
+        <Param name="lineWidth" updates="constant" val="4" valType="code"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="bottom_line" valType="code"/>
-        <Param name="opacity" updates="constant" val="1" valType="code"/>
+        <Param name="opacity" updates="set every frame" val="int(frameN%100 &gt; 2)" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
         <Param name="pos" updates="set every repeat" val="(blind_x*int(expInfo['eye_lr']), bottom_y)" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="shape" updates="constant" val="line" valType="str"/>
-        <Param name="size" updates="constant" val="(1, 1)" valType="code"/>
+        <Param name="size" updates="constant" val="(1.5, 1)" valType="code"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
         <Param name="startVal" updates="None" val="0.5" valType="code"/>
@@ -254,15 +254,15 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="$[1,1,1]" valType="str"/>
         <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
-        <Param name="lineWidth" updates="constant" val="2" valType="code"/>
+        <Param name="lineWidth" updates="constant" val="4" valType="code"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="middle_line" valType="code"/>
-        <Param name="opacity" updates="constant" val="1" valType="code"/>
+        <Param name="opacity" updates="set every frame" val="int(frameN%100 &gt; 2)" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
         <Param name="pos" updates="set every repeat" val="(blind_x*int(expInfo['eye_lr']), middle_y)" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="shape" updates="constant" val="line" valType="str"/>
-        <Param name="size" updates="constant" val="(1, 1)" valType="code"/>
+        <Param name="size" updates="constant" val="(1.5, 1)" valType="code"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
         <Param name="startVal" updates="None" val="0.5" valType="code"/>
@@ -279,15 +279,15 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="$[1,1,1]" valType="str"/>
         <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
-        <Param name="lineWidth" updates="constant" val="2" valType="code"/>
+        <Param name="lineWidth" updates="constant" val="4" valType="code"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="top_line" valType="code"/>
-        <Param name="opacity" updates="constant" val="1" valType="code"/>
+        <Param name="opacity" updates="set every frame" val="int(frameN%100 &gt; 2)" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
         <Param name="pos" updates="set every repeat" val="(blind_x*int(expInfo['eye_lr']), top_y)" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="shape" updates="constant" val="line" valType="str"/>
-        <Param name="size" updates="constant" val="(1, 1)" valType="code"/>
+        <Param name="size" updates="constant" val="(1.5, 1)" valType="code"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
         <Param name="startVal" updates="None" val="0.5" valType="code"/>
