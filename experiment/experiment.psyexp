@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" ?>
-<PsychoPy2experiment encoding="utf-8" version="2020.2.5">
+<PsychoPy2experiment encoding="utf-8" version="2020.2.6">
   <Settings>
     <Param name="Audio latency priority" updates="None" val="use prefs" valType="str"/>
     <Param name="Audio lib" updates="None" val="use prefs" valType="str"/>
@@ -229,7 +229,7 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="$[1,1,1]" valType="str"/>
         <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
-        <Param name="lineWidth" updates="constant" val="2" valType="code"/>
+        <Param name="lineWidth" updates="constant" val="4" valType="code"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="bottom_line" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
@@ -254,7 +254,7 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="$[1,1,1]" valType="str"/>
         <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
-        <Param name="lineWidth" updates="constant" val="2" valType="code"/>
+        <Param name="lineWidth" updates="constant" val="4" valType="code"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="middle_line" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
@@ -279,7 +279,7 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="$[1,1,1]" valType="str"/>
         <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
-        <Param name="lineWidth" updates="constant" val="2" valType="code"/>
+        <Param name="lineWidth" updates="constant" val="4" valType="code"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="top_line" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
