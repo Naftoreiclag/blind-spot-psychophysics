@@ -26,12 +26,12 @@ bottom_line = blind_y - (gap_size/2)
 middle_line = blind_y + (gap_size/2)    # these keep the real distance between lines at 4
 top_line = middle_line + gap_size    # centered location of top line
 
-delta_x = 0.2
+delta_x = 0.3
 bound_bottom = -4
 bound_top = 4
 
-num_repeats = 5
-jitter_max = 0.1
+num_repeats = 20
+jitter_max = 0.2
 
 print(top_line + delta_x*bound_top + jitter_max - 2)
 
