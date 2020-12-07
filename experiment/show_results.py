@@ -2,6 +2,10 @@ import sys
 import glob
 import csv
 import numpy as np
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+from collections import defaultdict 
+from scipy.stats import norm
 
 if len(sys.argv) <= 3:
 	print('Error, use like this:')
@@ -69,4 +73,86 @@ levels, resp = load_data(subject_name, eye_lr, is_control)
 
 print(repr(levels))
 print(repr(resp))
+
+def plot_it(resp, levels):
+	# In[137]:
+
+	#get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+	# In[138]:
+
+
+	responses = [x for x in resp]
+	#responses = sorted(responses)
+	#responses = [False] * len(responses)
+	levels = [x for x in levels]
+
+
+	# In[139]:
+
+
+	n = len(responses)
+
+	responses_by_level = defaultdict(list)
+
+	for i in range(n):
+		if responses[i] == None:
+			continue
+		responses_by_level[levels[i]].append(int(responses[i]))
+
+	responses_by_level
+
+
+	# In[140]:
+
+
+	percentages = defaultdict(list)
+
+	for level in responses_by_level:
+		resps = responses_by_level[level]
+		percentages[level] = np.sum(resps) / len(resps)
+		
+	percentages
+
+
+	# In[141]:
+
+
+	# make sure everything is sorted
+	all_values = list(zip(percentages.keys(), percentages.values()))
+	all_values = np.array(sorted(all_values, key=lambda x: x[0]))
+	all_values
+
+
+	# In[142]:
+
+
+	x = all_values[:,0]
+	p = all_values[:,1]
+	# p = [0, 0.1, 0.3, 0.55, 0.7, 0.9, 1]  # test: something that actually looks like a psychometric function
+
+
+	# In[143]:
+
+
+	(mu, sigma), cov = curve_fit(norm.cdf, x, p, [0,1]) # last argument is initialization
+	mu, sigma
+
+
+	# In[144]:
+
+
+	plt.scatter(x, p, c='r')
+	plt.ylim(0, 1)
+	plt.plot(x, norm.cdf(x, mu, sigma))
+
+
+	# In[ ]:
+
+	plt.show()
+	
+
+plot_it(resp, levels)
+
 
