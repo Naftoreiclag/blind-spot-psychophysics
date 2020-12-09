@@ -74,12 +74,14 @@ def save_blind_spot(subject_name, eye_lr, ellipse):
 	with open(filename, 'w') as ofile:
 		json.dump([subject_name, eye_lr, ellipse], ofile)
 	
+def cm_to_deg(x):
+	return np.arctan(x/30) * 180 / np.pi
 
 def fit_svm(locs, resp):
 	from sklearn import svm
 	
 	samples = locs
-	
+
 	blind_spot_center = np.median(samples[~resp], axis=0)
 	print(blind_spot_center)
 
@@ -114,13 +116,18 @@ def fit_svm(locs, resp):
 	Z = Xs * weights[0] + Ys * weights[1] + Xs*Xs*weights[2] + Ys*Ys*weights[3] + bias
 
 	fig, ax = plt.subplots()
-	CS = ax.contour(X, Y, Z, levels=[-1, 0, 1], colors='k')
+	CS = ax.contour(cm_to_deg(X), cm_to_deg(Y), Z, levels=[-1, 0], colors='k')
 	ax.clabel(CS, inline=1, fontsize=10)
-	ax.scatter(samples[resp,0], samples[resp,1])
-	ax.scatter(samples[~resp,0], samples[~resp,1])
-	ax.plot([blind_spot_center[0]], [blind_spot_center[1]], marker='o', markersize=3, color="red")
-	ax.set_xlim(-8, 8)
-	ax.set_ylim(-8, 8)
+
+	samples_deg = cm_to_deg(samples)
+	ax.scatter(samples_deg[resp,0], samples_deg[resp,1])
+	ax.scatter(samples_deg[~resp,0], samples_deg[~resp,1])
+
+	ax.plot([cm_to_deg(blind_spot_center[0])], [cm_to_deg(blind_spot_center[1])], marker='o', markersize=3, color="red")
+	ax.set_xlim(cm_to_deg(-8), cm_to_deg(8))
+	ax.set_ylim(cm_to_deg(-8), cm_to_deg(8))
+	ax.set_xlabel('horizontal offset from fovea (deg)')
+	ax.set_ylabel('vertical offset from fovea (deg)')
 	ax.set_aspect('equal')
 	plt.show()
 	
