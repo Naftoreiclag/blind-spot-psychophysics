@@ -116,10 +116,10 @@ def fit_svm(locs, resp):
 	Ys = Y - blind_spot_center[1]
 	Z = Xs * weights[0] + Ys * weights[1] + Xs*Xs*weights[2] + Ys*Ys*weights[3] + bias
 
-	fig, ax = plt.subplots()
+	fig, ax = plt.subplots(figsize=(4.5,4))
 	CS = ax.contour(cm_to_deg(X)*eye_lr, cm_to_deg(Y), Z, levels=[-1, 0], colors='k')
-	CS.collections[1].set_label('Margin')
-	CS.collections[0].set_label('Edge')
+	CS.collections[1].set_label('Edge')
+	CS.collections[0].set_label('Margin')
 	#ax.clabel(CS, inline=1, fontsize=10)
 
 	samples_deg = cm_to_deg(samples)
@@ -148,7 +148,12 @@ def fit_svm(locs, resp):
 		1 : 'Left',
 	}
 	
-	ax.set_title('Subject {}, {} Eye'.format(ALIASES[subject_name[0]], EYE_NAMES[eye_lr]))
+	ax.set_title('Map of Subject {}, {} Eye'.format(ALIASES[subject_name[0]], EYE_NAMES[eye_lr]))
+	
+	ofname = 'fig/map_{}_{}.png'.format(ALIASES[subject_name[0]], EYE_NAMES[eye_lr])
+	ensure_folders_exist(ofname)
+	
+	plt.savefig(ofname)
 	plt.show()
 	
 	return a,b,h,k

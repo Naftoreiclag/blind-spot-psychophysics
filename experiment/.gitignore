@@ -2,5 +2,7 @@
 *.html
 *.js
 all_mu_sigmas.csv
+ignore/*
 data/*
+fig/*.png
 maps/*

@@ -6,6 +6,7 @@ from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 from collections import defaultdict 
 from scipy.stats import norm
+import os
 
 if len(sys.argv) <= 3:
 	print('Error, use like this:')
@@ -28,6 +29,15 @@ def string_to_bool(string):
 		return True
 	else:
 		raise RuntimeError('Cannot parse as bool: "{}"'.format(string))
+
+	
+def ensure_folders_exist(output_fname):
+	output_folder = ''.join(os.path.split(output_fname)[:-1])
+	if not os.path.exists(output_folder):
+		os.makedirs(output_folder)
+		return False
+	else:
+		return True
 
 def parse_response(resp):
 	if resp == 'w':
@@ -74,18 +84,43 @@ levels, resp = load_data(subject_name, eye_lr, is_control)
 print(repr(levels))
 print(repr(resp))
 
+ALIASES = {
+	'c' : 1,
+	'j' : 2, 
+	'k' : 3,
+	't' : 4,
+	'l' : 5,
+}
+
+
+
+EYE_NAMES = {
+	-1 : 'Right',
+	1 : 'Left',
+}
+
+CONTROL_NAMES = {
+	1 : 'Control',
+	0 : 'Test',
+}
+
 def make_title():
+	name = 'Subject {}'.format(ALIASES[subject_name[0]])
+	
 	if eye_lr == 1:
 		if is_control:
-			return subject_name + ', right, nasal (not blind)'
+			return name + ', Right, Nasal (Not Blind)'
 		else:
-			return subject_name + ', left, temporal (blind)'
+			return name + ', Left, Temporal (Blind)'
 	else:
 		if is_control:
-			return subject_name + ', left, nasal (not blind)'
+			return name + ', Left, Nasal (Not Blind)'
 		else:
-			return subject_name + ', right, temporal (blind)'
+			return name + ', Right, Temporal (Blind)'
 
+def cm_to_deg(x):
+	return np.arctan(x/30) * 180 / np.pi
+	
 def plot_it(resp, levels):
 	# In[137]:
 
@@ -160,14 +195,26 @@ def plot_it(resp, levels):
 	# In[144]:
 
 
-	plt.scatter(x, p, c='r')
-	plt.ylim(0, 1)
-	plt.plot(x, norm.cdf(x, mu, sigma))
+	fig, ax = plt.subplots(figsize=(4.5,4))
+	
+	x_in_deg = cm_to_deg(x*0.03)
+	
+	ax.scatter(x_in_deg, p, c='r', label='Level Mean')
+	ax.set_ylim(0, 1)
+	ax.plot(x_in_deg, norm.cdf(x, mu, sigma), label='Fit')
+	ax.legend()
+	ax.set_xlabel('displacement (deg)')
+	ax.set_ylabel('positive response rate')
 
 
 	# In[ ]:
 
-	plt.title(make_title())
+	ax.set_title(make_title())
+	
+	ofname = 'fig/plot_{}_{}_{}.png'.format(ALIASES[subject_name[0]], EYE_NAMES[eye_lr], CONTROL_NAMES[is_control])
+	ensure_folders_exist(ofname)
+	
+	plt.savefig(ofname)
 	plt.show()
 	
 
