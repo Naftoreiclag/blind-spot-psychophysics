@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+
 if not len(sys.argv) >= 2:
 	print('Args: <subject> <eye_lr>')
 	exit(0)
@@ -116,19 +117,38 @@ def fit_svm(locs, resp):
 	Z = Xs * weights[0] + Ys * weights[1] + Xs*Xs*weights[2] + Ys*Ys*weights[3] + bias
 
 	fig, ax = plt.subplots()
-	CS = ax.contour(cm_to_deg(X), cm_to_deg(Y), Z, levels=[-1, 0], colors='k')
-	ax.clabel(CS, inline=1, fontsize=10)
+	CS = ax.contour(cm_to_deg(X)*eye_lr, cm_to_deg(Y), Z, levels=[-1, 0], colors='k')
+	CS.collections[1].set_label('Margin')
+	CS.collections[0].set_label('Edge')
+	#ax.clabel(CS, inline=1, fontsize=10)
 
 	samples_deg = cm_to_deg(samples)
-	ax.scatter(samples_deg[resp,0], samples_deg[resp,1])
-	ax.scatter(samples_deg[~resp,0], samples_deg[~resp,1])
+	ax.scatter(samples_deg[resp,0]*eye_lr, samples_deg[resp,1], label='Seen')
+	ax.scatter(samples_deg[~resp,0]*eye_lr, samples_deg[~resp,1], label='Not Seen')
 
-	ax.plot([cm_to_deg(blind_spot_center[0])], [cm_to_deg(blind_spot_center[1])], marker='o', markersize=3, color="red")
+	ax.plot([cm_to_deg(blind_spot_center[0])*eye_lr], [cm_to_deg(blind_spot_center[1])], marker='o', markersize=3, color="red")
 	ax.set_xlim(cm_to_deg(-8), cm_to_deg(8))
 	ax.set_ylim(cm_to_deg(-8), cm_to_deg(8))
 	ax.set_xlabel('horizontal offset from fovea (deg)')
 	ax.set_ylabel('vertical offset from fovea (deg)')
 	ax.set_aspect('equal')
+	ax.legend()
+	ax.grid(True)
+	
+	ALIASES = {
+		'c' : 1,
+		'j' : 2, 
+		'k' : 3,
+		't' : 4,
+		'l' : 5,
+	}
+
+	EYE_NAMES = {
+		-1 : 'Right',
+		1 : 'Left',
+	}
+	
+	ax.set_title('Subject {}, {} Eye'.format(ALIASES[subject_name[0]], EYE_NAMES[eye_lr]))
 	plt.show()
 	
 	return a,b,h,k

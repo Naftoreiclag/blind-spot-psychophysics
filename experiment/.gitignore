@@ -1,5 +1,6 @@
 *_lastrun.py
 *.html
 *.js
+all_mu_sigmas.csv
 data/*
 maps/*
