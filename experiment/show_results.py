@@ -74,6 +74,18 @@ levels, resp = load_data(subject_name, eye_lr, is_control)
 print(repr(levels))
 print(repr(resp))
 
+def make_title():
+	if eye_lr == 1:
+		if is_control:
+			return subject_name + ', right, nasal (not blind)'
+		else:
+			return subject_name + ', left, temporal (blind)'
+	else:
+		if is_control:
+			return subject_name + ', left, nasal (not blind)'
+		else:
+			return subject_name + ', right, temporal (blind)'
+
 def plot_it(resp, levels):
 	# In[137]:
 
@@ -137,7 +149,12 @@ def plot_it(resp, levels):
 
 
 	(mu, sigma), cov = curve_fit(norm.cdf, x, p, [0,1]) # last argument is initialization
-	mu, sigma
+	print('mu', mu, 'sigma', sigma)
+
+	with open('all_mu_sigmas.csv', 'a') as f:
+		writer = csv.writer(f)
+		# writer.writerow(['', 'mu', 'sigma'])
+		writer.writerow([make_title(), mu, sigma])
 
 
 	# In[144]:
@@ -150,6 +167,7 @@ def plot_it(resp, levels):
 
 	# In[ ]:
 
+	plt.title(make_title())
 	plt.show()
 	
 
