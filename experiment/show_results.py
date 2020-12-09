@@ -197,7 +197,7 @@ def plot_it(resp, levels):
 
 	fig, ax = plt.subplots(figsize=(4.5,4))
 	
-	x_in_deg = cm_to_deg(x*0.03)
+	x_in_deg = cm_to_deg(x*0.3)
 	
 	ax.scatter(x_in_deg, p, c='r', label='Level Mean')
 	ax.set_ylim(0, 1)
